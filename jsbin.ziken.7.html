@@ -1,0 +1,116 @@
+<!doctype html>
+<!--
+Created using JS Bin
+http://bin.webduino.io
+
+Copyright (c) 2018 by anonymous (http://bin.webduino.io/ziken/7/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Webduino Blockly - 控制兩顆 LED 燈</title>
+  <!-- webduino -->
+  <script src="https://webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+  <script src="https://blockly.webduino.io/webduino-blockly.js"></script>
+  <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+<style id="jsbin-css">
+#light1,
+#lock1,
+#lock2 {
+  width: 47%;
+  display: inline-block;
+  margin: 0 90px;
+}
+
+#light1 img,
+#lock1 img,
+#lock2 img {
+  width: 100%;
+  display: none;
+}
+
+#light1.off img:first-child,
+#lock1.off img:first-child,
+#lock2.off img:first-child{
+  display: inline-block;
+}
+
+#light1.on img:last-child,
+#lock1.on img:last-child,
+#lock2.on img:last-child{
+  display: inline-block;
+}
+
+</style>
+</head>
+
+<body>
+  <body>
+  <div id="light1" class="off">
+    <img src="http://i.imgur.com/MsPBb4B.png">
+    <img src="http://i.imgur.com/iXbvb2n.png">
+  </div>
+  <div id="lock1" class="off">
+    <img src="http://i.imgur.com/M96aFlf.png">
+    </div>
+   <div id="lock2" class="off"> 
+    <img src="http://i.imgur.com/9FFaf6J.png ">
+  </div>
+<script id="jsbin-javascript">
+var led1;
+var led2;
+var led3;
+
+boardReady('6AqX', function (board) {
+  board.systemReset();
+  board.samplingInterval = 20;
+  led1 = getLed(board, 10);
+  led2 = getLed(board, 11);
+  led3 = getLed(board, 12);
+  led1.off();
+  led2.off();
+  led3.off();
+  document.getElementById("light1").setAttribute("class","off");
+  document.getElementById("lock1").setAttribute("class","off");
+  document.getElementById("light1").addEventListener("click",function(){
+    if (document.getElementById("light1").getAttribute("class")=="on") {
+      document.getElementById("light1").setAttribute("class","off");
+      led1.off();
+    } else {
+      document.getElementById("light1").setAttribute("class","on");
+      led1.on();
+    }
+
+  });
+  document.getElementById("lock1").className = "off";
+  document.getElementById("lock1").addEventListener("click", function(){
+    document.getElementById("lock1").className = "on";
+     led2.on();
+    setTimeout(function () {
+      document.getElementById("lock1").className = "off";
+     led2.off();
+    }, 2000);
+  });
+  document.getElementById("lock2").className = "off";
+  document.getElementById("lock2").addEventListener("click", function(){
+    document.getElementById("lock2").className = "on";
+     led3.on();
+    setTimeout(function () {
+      document.getElementById("lock2").className = "off";
+     led3.off();
+    }, 3000);
+  });
+
+
+});
+
+</script>
+</body>
+
+
+</html>
